@@ -4,7 +4,7 @@
     <resultMap id="BaseResultMap" type="com.ranzhenxingmall.pojo.User">
         <constructor>
             <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer"/>
-            <arg column="username" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="userName" jdbcType="VARCHAR" javaType="java.lang.String"/>
             <arg column="password" jdbcType="VARCHAR" javaType="java.lang.String"/>
             <arg column="email" jdbcType="VARCHAR" javaType="java.lang.String"/>
             <arg column="phone" jdbcType="VARCHAR" javaType="java.lang.String"/>
@@ -16,7 +16,7 @@
         </constructor>
     </resultMap>
     <sql id="Base_Column_List">
-    id, username, password, email, phone, question, answer, role, create_time, update_time
+    id, userName, password, email, phone, question, answer, role, create_time, update_time
   </sql>
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         select
@@ -29,11 +29,11 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
     <insert id="insert" parameterType="com.ranzhenxingmall.pojo.User">
-    insert into mmall_user (id, username, password, 
+    insert into mmall_user (id, userName, password,
       email, phone, question, 
       answer, role, create_time, 
       update_time)
-    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
       #{email,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{question,jdbcType=VARCHAR}, 
       #{answer,jdbcType=VARCHAR}, #{role,jdbcType=INTEGER}, now(),
       now())
@@ -44,8 +44,8 @@
             <if test="id != null">
                 id,
             </if>
-            <if test="username != null">
-                username,
+            <if test="userName != null">
+                userName,
             </if>
             <if test="password != null">
                 password,
@@ -76,8 +76,8 @@
             <if test="id != null">
                 #{id,jdbcType=INTEGER},
             </if>
-            <if test="username != null">
-                #{username,jdbcType=VARCHAR},
+            <if test="userName != null">
+                #{userName,jdbcType=VARCHAR},
             </if>
             <if test="password != null">
                 #{password,jdbcType=VARCHAR},
@@ -108,8 +108,8 @@
     <update id="updateByPrimaryKeySelective" parameterType="com.ranzhenxingmall.pojo.User">
         update mmall_user
         <set>
-            <if test="username != null">
-                username = #{username,jdbcType=VARCHAR},
+            <if test="userName != null">
+                userName = #{userName,jdbcType=VARCHAR},
             </if>
             <if test="password != null">
                 password = #{password,jdbcType=VARCHAR},
@@ -140,7 +140,7 @@
     </update>
     <update id="updateByPrimaryKey" parameterType="com.ranzhenxingmall.pojo.User">
     update mmall_user
-    set username = #{username,jdbcType=VARCHAR},
+    set userName = #{userName,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
       email = #{email,jdbcType=VARCHAR},
       phone = #{phone,jdbcType=VARCHAR},
@@ -153,49 +153,48 @@
 
   </update>
     <select id="checkUserName" resultType="int" parameterType="string">
-    select count (1) from mmall_user
-    where username =#{userName}
-
+    select count(1) from mmall_user
+    where userName =#{userName}
   </select>
     <select id="checkEmail" resultType="int" parameterType="string">
-    select count (1) from mmall_user
+    select count(1) from mmall_user
     where email =#{email}
   </select>
 
     <select id="checkAnswer" resultType="int" parameterType="map">
-    select count (1)
+    select count(1)
      from mmall_user
-    where username =#{userName}
+    where userName =#{userName}
     and question=#{question}
     and answer=#{answer}
   </select>
 
     <select id="selectQuestionByUserName" resultType="string" parameterType="string">
     select question from mmall_user
-    where username =#{userName}
+    where userName =#{userName}
   </select>
 
     <select id="selectLogin" resultMap="BaseResultMap" parameterType="map">
         select
         <include refid="Base_Column_List"/>
         from mmall_user
-        where username=#{userName}
-        and pwd=#{pwd}
+        where userName=#{userName}
+        and password=#{pwd}
     </select>
     <update id="updatePwdByUserName" parameterType="map">
     update mmall_user
     set  password = #{pwdNew},
         update_time =now()
-    where username = #{userName}
+    where userName = #{userName}
     </update>
     <select id="checkPwd" parameterType="map" resultType="int">
-        select count (1)
+        select count(1)
         from mmall_user
         where id =#{userId}
         and password=#{pwdOld}
     </select>
     <select id="checkEmailByUserId" resultType="int" parameterType="map">
-    select count (1)
+    select count(1)
     from mmall_user
     where email =#{email}
     and id !=#{userId}

@@ -34,7 +34,7 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public ServerResponse<String> register(User user) {
-        ServerResponse<String> checkUserNameResponse = this.checkValid(Const.USERNAME, user.getUsername());
+        ServerResponse<String> checkUserNameResponse = this.checkValid(Const.USERNAME, user.getUserName());
         if (!checkUserNameResponse.isSuccess()) {
             return checkUserNameResponse;
         }
@@ -150,5 +150,15 @@ public class UserServiceImpl implements IUserService {
             return ServerResponse.createBySuccess("用户信息更新成功",updateUser);
         }
         return ServerResponse.createByErrorMessage("用户信息更新失败");
+    }
+
+    @Override
+    public ServerResponse<User> queryUserInfo(Integer userId) {
+        User user = userMapper.selectByPrimaryKey(userId);
+        if (user==null) {
+            return ServerResponse.createByErrorMessage("找不到当前用户");
+        }
+        user.setPassword(StringUtils.EMPTY);
+        return ServerResponse.createBySuccess(user);
     }
 }
