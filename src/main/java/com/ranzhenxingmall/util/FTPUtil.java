@@ -127,7 +127,9 @@ public class FTPUtil {
                 uploaded = false;
                 e.printStackTrace();
             } finally {
-                fis.close();
+                if (fis != null) {
+                    fis.close();
+                }
                 ftpClient.disconnect();
             }
         }

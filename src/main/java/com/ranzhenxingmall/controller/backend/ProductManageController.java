@@ -114,6 +114,10 @@ public class ProductManageController {
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),"用户未登录,请登录管理员");
         }
         if(iUserService.checkAdminRole(user).isSuccess()){
+
+            if(file.isEmpty()){
+                return ServerResponse.createByErrorMessage("请选择要上传的文件");
+            }
             String realPath = session.getServletContext().getRealPath("upload");
             String targetFileName = iFileService.upload(file, realPath);
             String url = PropertiesUtil.getProperty("ftp.server.http.prefix") + targetFileName;
@@ -138,6 +142,11 @@ public class ProductManageController {
             return resultMap;
         }
         if(iUserService.checkAdminRole(user).isSuccess()){
+            if(file.isEmpty()){
+                resultMap.put("success",false);
+                resultMap.put("msg","请选择要上传的文件");
+                return resultMap;
+            }
             String path = session.getServletContext().getRealPath("upload");
             String targetFileName = iFileService.upload(file,path);
             if(StringUtils.isBlank(targetFileName)){

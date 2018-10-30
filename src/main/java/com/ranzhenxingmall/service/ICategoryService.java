@@ -1,6 +1,9 @@
 package com.ranzhenxingmall.service;
 
 import com.ranzhenxingmall.common.ServerResponse;
+import com.ranzhenxingmall.pojo.Category;
+
+import java.util.List;
 
 public interface ICategoryService {
 
@@ -8,7 +11,7 @@ public interface ICategoryService {
 
     ServerResponse updateCategoryName(Integer categoryId, String categoryName);
 
-    ServerResponse getChildrenParallelCategory(Integer categoryId);
+    ServerResponse<List<Category>> getChildrenParallelCategory(Integer categoryId);
 
-    ServerResponse selectCategoryAndChildrenById(Integer categoryId);
+    ServerResponse<List<Integer>> selectCategoryAndChildrenById(Integer categoryId);
 }
