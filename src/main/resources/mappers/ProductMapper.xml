@@ -180,7 +180,7 @@
         select
         <include refid="Base_Column_List"/>
         from mmall_product
-        order by asc
+        order by id asc
     </select>
 
     <select id="selectByNameAndProductId" resultMap="BaseResultMap" parameterType="map">
@@ -195,7 +195,7 @@
 
         <where>
             <if test="productId !=null">
-                and name like #{productId}
+                and id = #{productId}
             </if>
         </where>
 
