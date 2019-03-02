@@ -144,6 +144,7 @@ public class FTPUtil {
         try {
             ftpClient.connect(ip);
             isSuccess = ftpClient.login(user, pwd);
+            logger.error("loginFTP服务器结果", isSuccess);
         } catch (IOException e) {
             logger.error("连接FTP服务器异常", e);
         }
