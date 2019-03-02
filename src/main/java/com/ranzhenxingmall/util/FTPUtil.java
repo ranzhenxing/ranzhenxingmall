@@ -107,7 +107,7 @@ public class FTPUtil {
     }
 
     private boolean uploadFile(String remotePath, List<File> fileList) throws IOException {
-        boolean uploaded = true;
+        boolean uploaded = false;
         FileInputStream fis = null;
         //连接FTP服务器
         if (connectServer(this.ip, this.port, this.user, this.pwd)) {
