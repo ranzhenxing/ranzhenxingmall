@@ -28,7 +28,7 @@ public class UserController {
      * @param session  session
      * @return 是否成功
      */
-    @RequestMapping(value = "login.do", method = RequestMethod.POST)
+    @RequestMapping(value = "login.do",  method = {RequestMethod.POST,RequestMethod.GET})
     @ResponseBody
     public ServerResponse<User> login(String userName, String pwd, HttpSession session) {
         ServerResponse<User> response = iUserService.login(userName, pwd);
