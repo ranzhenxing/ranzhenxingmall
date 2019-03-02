@@ -102,7 +102,7 @@ public class FTPUtil {
         FTPUtil ftpUtil = new FTPUtil(ftpIp, 21, ftpUser, ftpPass);
         logger.info("开始连接ftp服务器");
         boolean result = ftpUtil.uploadFile("img", files);
-        logger.info("开始连接ftp服务器,结束上传,上传结果:{}", result);
+        logger.info("结束上传,上传结果:{}", result);
         return result;
     }
 
@@ -121,7 +121,8 @@ public class FTPUtil {
                     fis = new FileInputStream(fileItem);
                     ftpClient.storeFile(fileItem.getName(), fis);
                 }
-
+                String workingDirectory = ftpClient.printWorkingDirectory();
+                logger.debug("上传文件目录是：", workingDirectory);
             } catch (IOException e) {
                 logger.error("上传文件异常", e);
                 uploaded = false;
