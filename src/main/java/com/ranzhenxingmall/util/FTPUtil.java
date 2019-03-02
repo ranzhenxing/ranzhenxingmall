@@ -107,7 +107,7 @@ public class FTPUtil {
     }
 
     private boolean uploadFile(String remotePath, List<File> fileList) throws IOException {
-        boolean uploaded = false;
+        boolean uploaded=false;
         FileInputStream fis = null;
         //连接FTP服务器
         if (connectServer(this.ip, this.port, this.user, this.pwd)) {
@@ -123,6 +123,7 @@ public class FTPUtil {
                 }
                 String workingDirectory = ftpClient.printWorkingDirectory();
                 logger.info("上传文件目录是:{}", workingDirectory);
+                uploaded=true;
             } catch (IOException e) {
                 logger.error("上传文件异常", e);
                 uploaded = false;
@@ -139,7 +140,7 @@ public class FTPUtil {
 
     private boolean connectServer(String ip, int port, String user, String pwd) {
 
-        boolean isSuccess = false;
+        boolean isSuccess ;
         ftpClient = new FTPClient();
         try {
             ftpClient.connect(ip);
@@ -147,6 +148,7 @@ public class FTPUtil {
             logger.error("loginFTP服务器结果:{}", isSuccess);
         } catch (IOException e) {
             logger.error("连接FTP服务器异常", e);
+            isSuccess=false;
         }
         return isSuccess;
     }
