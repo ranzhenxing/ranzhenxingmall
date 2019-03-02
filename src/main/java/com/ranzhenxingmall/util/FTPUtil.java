@@ -122,7 +122,7 @@ public class FTPUtil {
                     ftpClient.storeFile(fileItem.getName(), fis);
                 }
                 String workingDirectory = ftpClient.printWorkingDirectory();
-                logger.info("上传文件目录是：", workingDirectory);
+                logger.info("上传文件目录是:{}", workingDirectory);
             } catch (IOException e) {
                 logger.error("上传文件异常", e);
                 uploaded = false;
@@ -144,7 +144,7 @@ public class FTPUtil {
         try {
             ftpClient.connect(ip);
             isSuccess = ftpClient.login(user, pwd);
-            logger.error("loginFTP服务器结果", isSuccess);
+            logger.error("loginFTP服务器结果:{}", isSuccess);
         } catch (IOException e) {
             logger.error("连接FTP服务器异常", e);
         }
